@@ -15,6 +15,14 @@ public class ProjectDtos {
     ) {
     }
 
+    public record UpdateProjectRequest(
+            @NotBlank String title,
+            @NotBlank String author,
+            String description,
+            List<ProjectFileRequest> files
+    ) {
+    }
+
     public record ProjectFileRequest(
             @NotBlank String name,
             Long size

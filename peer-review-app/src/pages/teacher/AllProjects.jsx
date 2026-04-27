@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
-import { Search, ChevronUp, ChevronDown, Download, X } from 'lucide-react'
-import { fetchProjects } from '../../services/platformStore'
+import { Search, ChevronUp, ChevronDown, Download, X, Pencil, Trash2 } from 'lucide-react'
+import { deleteProject, fetchProjects, updateProject } from '../../services/platformStore'
 import { downloadSimplePdf } from '../../utils/pdfExport'
 
 const statusColors = {
@@ -17,7 +17,9 @@ export default function AllProjects() {
   const [sortBy, setSortBy] = useState('submittedAt')
   const [sortDir, setSortDir] = useState('desc')
   const [selectedProject, setSelectedProject] = useState(null)
+  const [editingProject, setEditingProject] = useState(null)
   const [error, setError] = useState('')
+  const [saving, setSaving] = useState(false)
 
   useEffect(() => {
     let active = true
@@ -55,6 +57,53 @@ export default function AllProjects() {
     if (sortBy === col) setSortDir((d) => (d === 'asc' ? 'desc' : 'asc'))
     else setSortDir('desc')
     setSortBy(col)
+  }
+
+  const startEdit = (project) => {
+    setEditingProject({
+      ...project,
+      filesText: (project.files || []).map((file) => file.name).join(', '),
+    })
+    setError('')
+  }
+
+  const saveEdit = async (e) => {
+    e.preventDefault()
+    if (!editingProject?.title?.trim() || !editingProject?.author?.trim()) {
+      setError('Project title and author are required.')
+      return
+    }
+
+    setSaving(true)
+    const result = await updateProject(editingProject.id, {
+      title: editingProject.title,
+      author: editingProject.author,
+      description: editingProject.description,
+      files: String(editingProject.filesText || '')
+        .split(',')
+        .map((name) => name.trim())
+        .filter(Boolean)
+        .map((name) => ({ name, size: 0 })),
+    })
+    setSaving(false)
+
+    if (result?.error) {
+      setError(result.error)
+      return
+    }
+
+    setProjects((prev) => prev.map((project) => (project.id === result.project.id ? result.project : project)))
+    setEditingProject(null)
+  }
+
+  const removeProject = async (project) => {
+    if (!window.confirm(`Delete "${project.title}"?`)) return
+    const result = await deleteProject(project.id)
+    if (result?.error) {
+      setError(result.error)
+      return
+    }
+    setProjects((prev) => prev.filter((item) => item.id !== project.id))
   }
 
   const exportPdf = () => {
@@ -163,12 +212,28 @@ export default function AllProjects() {
                     {p.completionPercentage != null ? `${p.completionPercentage}%` : '-'}
                   </td>
                   <td className="py-4 px-4 text-right">
-                    <button
-                      onClick={() => setSelectedProject(p)}
-                      className="text-indigo-600 dark:text-indigo-400 hover:underline text-sm font-medium"
-                    >
-                      View
-                    </button>
+                    <div className="flex justify-end gap-2">
+                      <button
+                        onClick={() => setSelectedProject(p)}
+                        className="px-2 py-1 rounded text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 text-sm font-medium"
+                      >
+                        View
+                      </button>
+                      <button
+                        onClick={() => startEdit(p)}
+                        className="p-2 rounded text-slate-500 hover:text-indigo-600 hover:bg-slate-100 dark:hover:bg-slate-700"
+                        title="Edit project"
+                      >
+                        <Pencil className="w-4 h-4" />
+                      </button>
+                      <button
+                        onClick={() => removeProject(p)}
+                        className="p-2 rounded text-slate-500 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/30"
+                        title="Delete project"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}
@@ -203,6 +268,55 @@ export default function AllProjects() {
               ))}
             </div>
           </div>
+        </div>
+      )}
+
+      {editingProject && (
+        <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4" onClick={() => setEditingProject(null)}>
+          <form
+            onSubmit={saveEdit}
+            className="w-full max-w-xl bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-6 space-y-4"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between">
+              <h3 className="text-lg font-semibold text-slate-800 dark:text-white">Edit Project</h3>
+              <button type="button" onClick={() => setEditingProject(null)} className="p-2 text-slate-500">
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+            <input
+              value={editingProject.title}
+              onChange={(e) => setEditingProject((prev) => ({ ...prev, title: e.target.value }))}
+              className="w-full px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-800 dark:text-white"
+              placeholder="Project title"
+            />
+            <input
+              value={editingProject.author}
+              onChange={(e) => setEditingProject((prev) => ({ ...prev, author: e.target.value }))}
+              className="w-full px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-800 dark:text-white"
+              placeholder="Author"
+            />
+            <textarea
+              value={editingProject.description || ''}
+              onChange={(e) => setEditingProject((prev) => ({ ...prev, description: e.target.value }))}
+              rows={4}
+              className="w-full px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-800 dark:text-white"
+              placeholder="Description"
+            />
+            <input
+              value={editingProject.filesText}
+              onChange={(e) => setEditingProject((prev) => ({ ...prev, filesText: e.target.value }))}
+              className="w-full px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-800 dark:text-white"
+              placeholder="File names separated by commas"
+            />
+            <button
+              type="submit"
+              disabled={saving}
+              className="w-full py-2.5 rounded-lg bg-indigo-600 hover:bg-indigo-700 disabled:opacity-60 text-white font-medium"
+            >
+              {saving ? 'Saving...' : 'Save changes'}
+            </button>
+          </form>
         </div>
       )}
     </div>

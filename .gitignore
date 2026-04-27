@@ -1,0 +1,9 @@
+.vercel
+.env*.local
+.env
+.DS_Store
+node_modules/
+dist/
+target/
+.m2/
+.m2repo/

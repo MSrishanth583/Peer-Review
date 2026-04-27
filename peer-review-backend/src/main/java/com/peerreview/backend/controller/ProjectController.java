@@ -33,6 +33,20 @@ public class ProjectController {
         return projectService.createProject(request);
     }
 
+    @PutMapping("/{projectId}")
+    public ProjectDtos.ProjectResponse updateProject(
+            @PathVariable Long projectId,
+            @Valid @RequestBody ProjectDtos.UpdateProjectRequest request
+    ) {
+        return projectService.updateProject(projectId, request);
+    }
+
+    @DeleteMapping("/{projectId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteProject(@PathVariable Long projectId) {
+        projectService.deleteProject(projectId);
+    }
+
     @GetMapping("/{projectId}/reviews")
     public List<ReviewDtos.ReviewResponse> getReviews(@PathVariable Long projectId) {
         return projectService.getReviews(projectId);

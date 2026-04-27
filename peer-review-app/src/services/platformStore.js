@@ -186,6 +186,45 @@ export async function uploadProject({ title, description, author, files }) {
   }
 }
 
+export async function updateProject(projectId, { title, description, author, files }) {
+  const res = await fetch(`${API_BASE_URL}/projects/${projectId}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      title: String(title).trim(),
+      description: String(description || '').trim(),
+      author: String(author || 'Student').trim(),
+      files: (files || []).map((file) => ({
+        name: String(file?.name || '').trim(),
+        size: Number(file?.size || 0),
+      })),
+    }),
+  })
+
+  if (!res.ok) {
+    const body = await res.json().catch(() => ({}))
+    return { error: body.error || 'Failed to update project' }
+  }
+
+  const project = normalizeProject(await res.json())
+  await refreshPlatformState()
+  return { project }
+}
+
+export async function deleteProject(projectId) {
+  const res = await fetch(`${API_BASE_URL}/projects/${projectId}`, {
+    method: 'DELETE',
+  })
+
+  if (!res.ok) {
+    const body = await res.json().catch(() => ({}))
+    return { error: body.error || 'Failed to delete project' }
+  }
+
+  await refreshPlatformState()
+  return { success: true }
+}
+
 export async function submitReview({ projectId, reviewer, rating, comment }) {
   const res = await fetch(`${API_BASE_URL}/projects/${projectId}/reviews`, {
     method: 'POST',

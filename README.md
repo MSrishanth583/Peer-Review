@@ -44,7 +44,7 @@ This platform helps students submit projects, participate in peer reviews, and c
 
 ### Deployment
 
-- Frontend: Vercel
+- Frontend: Render Static Site / Vercel
 - Backend: Render
 - Database: Render PostgreSQL
 
@@ -84,7 +84,7 @@ mvn spring-boot:run
 
 ### Frontend
 
-Set this in Vercel or local `.env`:
+Set this in Render, Vercel, or local `.env`:
 
 ```env
 VITE_API_BASE_URL=https://peer-review-backend-new.onrender.com/api
@@ -111,6 +111,27 @@ APP_FRONTEND_URL=https://peer-review-app-nine.vercel.app,http://localhost:5173
 - Teacher approvals and grading
 - Admin monitoring and exports
 
+## Rubric Coverage
+
+- Routing + UI/UX & CSS: React Router routes for login, student, teacher, and admin dashboards with Tailwind/CSS styling.
+- Frontend Validation & Error Handling: login/register captcha and required-field checks, upload validation, and user-facing error messages.
+- Fetch/Axios Implementation: Fetch API service layer in `peer-review-app/src/services/platformStore.js` and auth calls in `AuthContext.jsx`.
+- Authentication: login and registration endpoints in `AuthController`, with separate student, teacher, and fixed admin access.
+- Session Management: localStorage/sessionStorage based remember-me behavior in `AuthContext.jsx`.
+- CRUD Operations: project create, read, update, and delete endpoints under `/api/projects`, plus frontend teacher controls.
+- API Integration: Spring Boot controllers/services return JSON responses; `ApiExceptionHandler` centralizes validation, not-found, bad-request, and unexpected exceptions.
+- Git Usage & Repository Management: repository includes Git history, `.gitignore`, README documentation, and deployment-ready `render.yaml`.
+
+## Render Deployment
+
+This repo includes a root `render.yaml` Blueprint that creates:
+
+- `peer-review-backend`: Dockerized Spring Boot web service
+- `peer-review-frontend`: Vite static site
+- `peer-review-db`: Render PostgreSQL database
+
+In Render, choose **New > Blueprint**, connect the GitHub repository, and select this repository root. Render's static site docs require a React Router rewrite from `/*` to `/index.html`; the Blueprint includes that rule. Render's Blueprint docs support `fromDatabase` references for Postgres connection values; the backend reads `DATABASE_URL` and prefixes it as a JDBC URL.
+
 ## Notes
 
 - Render free services may sleep after inactivity.
@@ -120,4 +141,3 @@ APP_FRONTEND_URL=https://peer-review-app-nine.vercel.app,http://localhost:5173
 ## Contributors
 
 - Reddy1236
-

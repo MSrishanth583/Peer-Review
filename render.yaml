@@ -1,0 +1,49 @@
+services:
+  - type: web
+    name: peer-review-backend
+    runtime: docker
+    rootDir: peer-review-backend
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    plan: free
+    healthCheckPath: /api/platform/state
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: peer-review-db
+          property: connectionString
+      - key: SPRING_DATASOURCE_USERNAME
+        fromDatabase:
+          name: peer-review-db
+          property: user
+      - key: SPRING_DATASOURCE_PASSWORD
+        fromDatabase:
+          name: peer-review-db
+          property: password
+      - key: SPRING_DATASOURCE_DRIVER_CLASS_NAME
+        value: org.postgresql.Driver
+      - key: SPRING_JPA_DATABASE_PLATFORM
+        value: org.hibernate.dialect.PostgreSQLDialect
+      - key: APP_FRONTEND_URL
+        value: https://peer-review-frontend.onrender.com,http://localhost:5173,http://127.0.0.1:5173
+
+  - type: web
+    name: peer-review-frontend
+    runtime: static
+    rootDir: peer-review-app
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: VITE_API_BASE_URL
+        value: https://peer-review-backend.onrender.com/api
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+
+databases:
+  - name: peer-review-db
+    plan: free
+    databaseName: peer_review_db
+    user: peer_review_user
+    postgresMajorVersion: "17"

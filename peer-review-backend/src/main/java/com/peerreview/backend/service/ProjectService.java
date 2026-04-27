@@ -87,6 +87,49 @@ public class ProjectService {
         return toProjectResponse(saved);
     }
 
+    @Transactional
+    public ProjectDtos.ProjectResponse updateProject(Long projectId, ProjectDtos.UpdateProjectRequest request) {
+        Project project = projectRepository.findById(projectId)
+                .orElseThrow(() -> new NoSuchElementException("Project not found"));
+
+        project.setTitle(request.title().trim());
+        project.setAuthor(request.author().trim());
+        project.setDescription(request.description());
+        project.setFiles(mapProjectFiles(request.files()));
+
+        Project saved = projectRepository.save(project);
+        addActivity(
+                "Project updated",
+                String.format("%s updated %s", saved.getAuthor(), saved.getTitle()),
+                "upload",
+                "project_updated",
+                saved.getId(),
+                saved.getTitle(),
+                saved.getAuthor(),
+                saved.getAuthor(),
+                "student"
+        );
+
+        return toProjectResponse(saved);
+    }
+
+    @Transactional
+    public void deleteProject(Long projectId) {
+        Project project = projectRepository.findById(projectId)
+                .orElseThrow(() -> new NoSuchElementException("Project not found"));
+
+        List<Review> reviews = reviewRepository.findByProjectId(projectId);
+        for (Review review : reviews) {
+            reviewReplyRepository.deleteAll(reviewReplyRepository.findByReviewId(review.getId()));
+        }
+        reviewRepository.deleteAll(reviews);
+        assignmentRepository.deleteByProjectId(projectId);
+        teacherDecisionRepository.findByProjectId(projectId).ifPresent(teacherDecisionRepository::delete);
+        projectRepository.delete(project);
+
+        addNotification("project", String.format("Project %s was deleted", project.getTitle()));
+    }
+
     public List<ReviewDtos.ReviewResponse> getReviews(Long projectId) {
         ensureProjectExists(projectId);
         return reviewRepository.findByProjectId(projectId).stream().map(this::toReviewResponse).toList();
