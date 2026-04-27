@@ -12,6 +12,8 @@ services:
         fromDatabase:
           name: peer-review-db
           property: connectionString
+      - key: SPRING_DATASOURCE_URL
+        value: jdbc:postgresql://dpg-d7npja7avr4c73fp83i0-a:5432/peer_review_db_iyef
       - key: SPRING_DATASOURCE_USERNAME
         fromDatabase:
           name: peer-review-db
