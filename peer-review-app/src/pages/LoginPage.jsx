@@ -161,103 +161,75 @@ export default function LoginPage() {
   }, [])
 
   return (
-    <div className="relative min-h-screen overflow-hidden">
+    <div className="relative min-h-screen overflow-hidden bg-slate-950 text-slate-900">
       <div className="login-bg" aria-hidden="true">
         <div className="login-blob login-blob-1" />
         <div className="login-blob login-blob-2" />
         <div className="login-blob login-blob-3" />
       </div>
       <canvas ref={canvasRef} className="login-particles" aria-hidden="true" />
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 opacity-90" />
 
-      <div className="relative z-10 min-h-screen flex">
-      {/* Left Panel - Illustration */}
-      <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-violet-950 via-fuchsia-950 to-slate-950 p-12 flex-col justify-between text-white border-r border-slate-800">
-        <div>
-          <div className="flex items-center gap-3 text-white/90">
-            <GraduationCap className="w-10 h-10 text-cyan-300" />
-            <span className="text-xl font-bold tracking-tight">Peer Review Platform</span>
-          </div>
-        </div>
-        <div className="space-y-6">
-          <h1 className="text-4xl font-bold text-white leading-tight">
-            Collaborate. Review. Improve.
-          </h1>
-          <p className="text-cyan-200 text-lg max-w-md">
-            Join thousands of students who enhance their learning through peer feedback and collaborative projects.
-          </p>
-          <div className="flex flex-wrap gap-4 text-sm text-slate-300">
-            <span>✓ Structured peer review</span>
-            <span>✓ Real-time collaboration</span>
-            <span>✓ Teacher oversight</span>
-          </div>
-        </div>
-        <div className="h-48 bg-slate-900/50 rounded-2xl flex items-center justify-center backdrop-blur-sm border border-slate-700/60">
-          <div className="text-center text-slate-200">
-            <p className="text-sm">Illustration placeholder</p>
-            <p className="text-xs opacity-70">Collaboration & feedback</p>
-          </div>
-        </div>
-      </div>
-
-      {/* Right Panel - Login Card */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center p-8 bg-transparent">
-        <div className="w-full max-w-md">
-          <div className="glass-card p-8 rounded-3xl shadow-2xl border border-slate-200 bg-white/95 backdrop-blur-xl">
-            <div className="flex items-center gap-2 mb-8 lg:hidden">
-              <GraduationCap className="w-8 h-8 text-cyan-500" />
-              <span className="font-bold text-slate-900">Peer Review</span>
+      <div className="relative z-10 flex min-h-screen items-center justify-center px-4 py-12">
+        <div className="w-full max-w-3xl">
+          <div className="mb-10 text-center text-slate-50">
+            <div className="inline-flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/10 px-4 py-2 text-sm font-semibold tracking-wide text-cyan-200 shadow-sm shadow-cyan-500/10 backdrop-blur-sm">
+              <GraduationCap className="w-5 h-5 text-cyan-200" />
+              Peer Review Platform
             </div>
-           <h2 className="text-2xl font-bold text-gray-900 mb-2">
-              {mode === 'login' ? 'Welcome back' : 'Create account'}
-            </h2>
-            <p className="text-slate-500 mb-6">
-              {role === 'admin'
-                ? 'Sign in with the fixed admin credentials to open the admin dashboard'
-                : mode === 'login'
-                  ? 'Sign in to continue to your dashboard'
-                  : 'Register first, then login'}
+            <h1 className="mt-8 text-4xl sm:text-5xl font-semibold tracking-tight text-white">
+              Collaborate. Review. Improve.
+            </h1>
+            <p className="mx-auto mt-4 max-w-2xl text-base text-slate-300 sm:text-lg">
+              Join thousands of students who enhance their learning through peer feedback and collaborative projects.
             </p>
-            <p className="text-xs text-slate-400 mb-4">
-              {role === 'admin'
-                ? 'Admin registration is disabled. Use the fixed admin email and password only.'
-                : 'Login works only for registered accounts.'}
-            </p>
+          </div>
 
-            {role !== 'admin' && (
-              <div className="flex gap-2 p-1 bg-slate-100 rounded-2xl border border-slate-200 mb-6">
-  <button
-    type="button"
-    onClick={() => setMode('login')}
-    className={`flex-1 py-2 rounded-xl text-sm font-medium transition-all ${
-      mode === 'login'
-        ? 'bg-slate-900 text-white shadow border border-slate-800'
-        : 'text-slate-600 hover:text-slate-900'
-    }`}
-  >
-    Login
-  </button>
-  <button
-    type="button"
-    onClick={() => setMode('register')}
-    className={`flex-1 py-2 rounded-xl text-sm font-medium transition-all ${
-      mode === 'register'
-        ? 'bg-slate-900 text-white shadow border border-slate-800'
-        : 'text-slate-600 hover:text-slate-900'
-    }`}
-  >
+          <div className="mx-auto w-full max-w-xl rounded-[2rem] border border-white/10 bg-white/95 p-8 shadow-[0_40px_100px_-40px_rgba(15,23,42,0.35)] backdrop-blur-xl">
+            <div className="mb-8 text-center">
+              <p className="text-sm uppercase tracking-[0.28em] text-slate-500">{mode === 'login' ? 'Login' : 'Register'}</p>
+              <h2 className="mt-4 text-3xl font-semibold text-slate-900">{mode === 'login' ? 'Welcome back' : 'Create account'}</h2>
+              <p className="mt-3 text-sm text-slate-500">
+                {role === 'admin'
+                  ? 'Sign in with the fixed admin credentials to open the admin dashboard'
+                  : mode === 'login'
+                    ? 'Sign in to continue to your dashboard'
+                    : 'Register first, then login'}
+              </p>
+            </div>
+
+            <div className="mb-6 grid gap-3 sm:grid-cols-2">
+              <button
+                type="button"
+                onClick={() => setMode('login')}
+                className={`rounded-2xl border px-4 py-3 text-sm font-medium transition ${
+                  mode === 'login'
+                    ? 'bg-slate-950 text-white border-slate-950 shadow-lg shadow-slate-950/10'
+                    : 'bg-transparent text-slate-600 border-slate-200 hover:bg-slate-50'
+                }`}
+              >
+                Login
+              </button>
+              <button
+                type="button"
+                onClick={() => setMode('register')}
+                className={`rounded-2xl border px-4 py-3 text-sm font-medium transition ${
+                  mode === 'register'
+                    ? 'bg-slate-950 text-white border-slate-950 shadow-lg shadow-slate-950/10'
+                    : 'bg-transparent text-slate-600 border-slate-200 hover:bg-slate-50'
+                }`}
+              >
                 Register
               </button>
-              </div>
-            )}
+            </div>
 
-            {/* Role Selection */}
-            <div className="grid grid-cols-3 gap-2 p-1 bg-slate-100 rounded-2xl border border-slate-200 mb-6">
+            <div className="grid grid-cols-3 gap-3 mb-6 rounded-2xl border border-slate-200 bg-slate-50 p-1 shadow-sm">
               <button
                 type="button"
                 onClick={() => handleRoleChange('student')}
-                className={`flex-1 py-2 rounded-xl text-sm font-medium transition-all ${
+                className={`rounded-2xl py-3 text-sm font-medium transition ${
                   role === 'student'
-                    ? 'bg-slate-900 text-white border border-slate-800'
+                    ? 'bg-slate-950 text-white shadow-sm shadow-slate-950/10'
                     : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
@@ -266,25 +238,25 @@ export default function LoginPage() {
               <button
                 type="button"
                 onClick={() => handleRoleChange('teacher')}
-                className={`flex-1 py-2 rounded-xl text-sm font-medium transition-all ${
+                className={`rounded-2xl py-3 text-sm font-medium transition ${
                   role === 'teacher'
-                    ? 'bg-slate-900 text-white border border-slate-800'
+                    ? 'bg-slate-950 text-white shadow-sm shadow-slate-950/10'
                     : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
                 Teacher
               </button>
               <button
-  type="button"
-  onClick={() => handleRoleChange('admin')}
-  className={`flex-1 py-2 rounded-xl text-sm font-medium transition-all ${
-    role === 'admin'
-      ? 'bg-slate-900 text-white border border-slate-800'
-      : 'text-slate-600 hover:text-slate-900'
-  }`}
->
-  Admin
-</button>
+                type="button"
+                onClick={() => handleRoleChange('admin')}
+                className={`rounded-2xl py-3 text-sm font-medium transition ${
+                  role === 'admin'
+                    ? 'bg-slate-950 text-white shadow-sm shadow-slate-950/10'
+                    : 'text-slate-600 hover:text-slate-900'
+                }`}
+              >
+                Admin
+              </button>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-5">
@@ -296,7 +268,7 @@ export default function LoginPage() {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Your full name"
-                    className="w-full px-4 py-2.5 rounded-xl border border-slate-300 bg-slate-50 text-slate-900 placeholder-slate-500 focus:ring-2 focus:ring-cyan-400 focus:border-transparent transition-all shadow-sm"
+                    className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-900 placeholder-slate-500 shadow-sm focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-200"
                   />
                 </div>
               )}
@@ -304,13 +276,13 @@ export default function LoginPage() {
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-2">Email</label>
                 <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+                  <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
                   <input
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder={role === 'admin' ? 'admin@example.com' : 'you@university.edu'}
-                    className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-300 bg-slate-50 text-slate-900 placeholder-slate-500 focus:ring-2 focus:ring-cyan-400 focus:border-transparent transition-all shadow-sm"
+                    className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 pl-12 text-slate-900 placeholder-slate-500 shadow-sm focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-200"
                   />
                 </div>
               </div>
@@ -318,33 +290,32 @@ export default function LoginPage() {
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-2">Password</label>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+                  <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
                   <input
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder={role === 'admin' ? 'Admin password' : '••••••••'}
-                    className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-300 bg-slate-50 text-slate-900 placeholder-slate-500 focus:ring-2 focus:ring-cyan-400 focus:border-transparent transition-all shadow-sm"
+                    className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 pl-12 text-slate-900 placeholder-slate-500 shadow-sm focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-200"
                   />
                 </div>
               </div>
 
-              {/* Captcha code */}
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-2">Captcha*</label>
-                <div className="flex gap-3 items-center">
-                  <div className="flex items-center justify-center min-w-[120px] h-12 px-4 bg-gradient-to-br from-fuchsia-500 via-violet-700 to-cyan-500 rounded-[1.5rem] text-white font-mono text-lg font-bold tracking-[0.3em] shadow-2xl shadow-fuchsia-500/20">
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+                  <div className="flex items-center justify-center min-w-[120px] h-14 rounded-[1.75rem] bg-gradient-to-br from-fuchsia-500 via-violet-700 to-cyan-500 px-4 text-lg font-semibold tracking-[0.28em] text-white shadow-2xl shadow-fuchsia-500/20">
                     {validationCode}
                   </div>
                   <button
                     type="button"
                     onClick={refreshValidationCode}
-                    className="p-2 rounded-xl text-slate-500 hover:bg-slate-100 hover:text-slate-900"
+                    className="inline-flex h-14 items-center justify-center rounded-2xl border border-slate-200 bg-slate-50 px-4 text-slate-600 transition hover:bg-slate-100 hover:text-slate-900"
                     title="Refresh captcha"
                   >
                     <Shield className="w-5 h-5" />
                   </button>
-                  <div className="relative flex-1">
+                  <div className="flex-1">
                     <input
                       type="text"
                       inputMode="numeric"
@@ -353,35 +324,31 @@ export default function LoginPage() {
                       value={captchaInput}
                       onChange={(e) => setCaptchaInput(e.target.value)}
                       placeholder="Enter captcha"
-                      className="w-full pl-4 pr-4 py-2.5 rounded-xl border border-slate-300 bg-slate-50 text-slate-900 placeholder-slate-500 focus:ring-2 focus:ring-cyan-400 focus:border-transparent transition-all shadow-sm"
+                      className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-900 placeholder-slate-500 shadow-sm focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-200"
                     />
                   </div>
                 </div>
               </div>
 
-              {error && (
-                <p className="text-sm text-red-400">{error}</p>
-              )}
-              {success && (
-                <p className="text-sm text-emerald-400">{success}</p>
-              )}
+              {error && <p className="text-sm text-red-500">{error}</p>}
+              {success && <p className="text-sm text-emerald-500">{success}</p>}
 
-              <div className="flex items-center justify-between">
-                <label className="flex items-center gap-2 cursor-pointer">
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                <label className="flex items-center gap-2 text-sm text-slate-600">
                   <input
                     type="checkbox"
                     checked={rememberMe}
                     onChange={(e) => setRememberMe(e.target.checked)}
-                    className="rounded border-slate-300 text-cyan-500 focus:ring-cyan-500"
+                    className="h-4 w-4 rounded border-slate-300 text-cyan-500 focus:ring-cyan-500"
                   />
-                  <span className="text-sm text-slate-600">Remember me</span>
+                  Remember me
                 </label>
                 <a href="#" className="text-sm text-cyan-500 hover:underline">Forgot password?</a>
               </div>
 
               <button
                 type="submit"
-                className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-cyan-500 to-sky-500 text-white font-medium hover:from-cyan-600 hover:to-sky-600 focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:ring-offset-white transition-all shadow-lg hover:shadow-xl"
+                className="mt-2 w-full rounded-2xl bg-gradient-to-r from-cyan-500 to-sky-500 px-5 py-3 text-base font-semibold text-white shadow-lg shadow-cyan-500/20 transition hover:from-cyan-600 hover:to-sky-600"
               >
                 {role === 'admin' || mode === 'login' ? 'Sign in' : 'Create account'}
               </button>
@@ -389,19 +356,18 @@ export default function LoginPage() {
           </div>
         </div>
       </div>
-      </div>
 
       {showRegisterPopup && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-          <div className="w-full max-w-sm rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 shadow-2xl">
-            <h3 className="text-lg font-semibold text-slate-800 dark:text-white">Registration Successful</h3>
-            <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">
+          <div className="w-full max-w-sm rounded-3xl bg-white p-6 shadow-2xl">
+            <h3 className="text-lg font-semibold text-slate-900">Registration Successful</h3>
+            <p className="mt-3 text-sm text-slate-600">
               Successfully registered. Please login with the same email and credentials.
             </p>
             <button
               type="button"
               onClick={() => setShowRegisterPopup(false)}
-              className="mt-5 w-full py-2.5 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-medium"
+              className="mt-6 w-full rounded-2xl bg-slate-950 px-4 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
             >
               OK
             </button>
