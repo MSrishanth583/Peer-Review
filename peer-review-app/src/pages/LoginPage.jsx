@@ -18,15 +18,14 @@ export default function LoginPage() {
   const [showRegisterPopup, setShowRegisterPopup] = useState(false)
   const canvasRef = useRef(null)
 
-  const generateCaptcha = useCallback(() => {
-    const a = Math.floor(Math.random() * 9) + 1
-    const b = Math.floor(Math.random() * 9) + 1
-    return { a, b, sum: a + b }
+  const validationWords = ['review', 'peer', 'study', 'focus', 'learn', 'share', 'collab', 'build']
+  const generateValidationCode = useCallback(() => {
+    return validationWords[Math.floor(Math.random() * validationWords.length)]
   }, [])
-  const [captcha, setCaptcha] = useState(() => generateCaptcha())
+  const [validationCode, setValidationCode] = useState(() => generateValidationCode())
 
-  const refreshCaptcha = () => {
-    setCaptcha(generateCaptcha())
+  const refreshValidationCode = () => {
+    setValidationCode(generateValidationCode())
     setCaptchaInput('')
   }
 
@@ -36,7 +35,7 @@ export default function LoginPage() {
       setMode('login')
       setName('')
     }
-    setCaptcha(generateCaptcha())
+    setValidationCode(generateValidationCode())
     setCaptchaInput('')
   }
 
@@ -46,18 +45,18 @@ export default function LoginPage() {
     setSuccess('')
     if (!email || !password) {
       setError('Please enter email and password')
-      refreshCaptcha()
+      refreshValidationCode()
       return
     }
-    if (Number(captchaInput) !== captcha.sum) {
-      setError('Captcha answer is incorrect')
-      refreshCaptcha()
+    if (captchaInput.trim().toLowerCase() !== validationCode) {
+      setError('Validation word is incorrect')
+      refreshValidationCode()
       return
     }
     if (mode === 'register') {
       if (!name.trim()) {
         setError('Please enter your full name')
-        refreshCaptcha()
+        refreshValidationCode()
         return
       }
 
@@ -70,7 +69,7 @@ export default function LoginPage() {
         setName('')
       } else {
         setError(reg.error || 'Registration failed')
-        refreshCaptcha()
+        refreshValidationCode()
       }
     } else {
       const res = await login(email, password, role, rememberMe)
@@ -88,7 +87,7 @@ export default function LoginPage() {
         }, 0)
       } else {
         setError(res.error || 'Login failed')
-        refreshCaptcha()
+        refreshValidationCode()
       }
     }
   }
@@ -331,18 +330,18 @@ export default function LoginPage() {
                 </div>
               </div>
 
-              {/* Captcha - Math addition */}
+              {/* Validation challenge */}
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-2">Captcha</label>
+                <label className="block text-sm font-medium text-slate-700 mb-2">Validation word</label>
                 <div className="flex gap-3 items-center">
-                  <div className="flex items-center justify-center gap-1 min-w-[100px] h-12 px-3 bg-slate-50 rounded-xl font-mono text-lg font-bold text-slate-900 select-none">
-                    {captcha.a} + {captcha.b} = ?
+                  <div className="flex items-center justify-center gap-1 min-w-[120px] h-12 px-4 bg-slate-50 rounded-xl font-mono text-lg font-bold text-slate-900 select-none tracking-[0.12em]">
+                    {validationCode.toUpperCase()}
                   </div>
                   <button
                     type="button"
-                    onClick={refreshCaptcha}
+                    onClick={refreshValidationCode}
                     className="p-2 rounded-xl text-slate-500 hover:bg-slate-100 hover:text-slate-900"
-                    title="Refresh captcha"
+                    title="Refresh challenge"
                   >
                     <Shield className="w-5 h-5" />
                   </button>
