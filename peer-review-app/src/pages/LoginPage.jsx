@@ -173,7 +173,7 @@ export default function LoginPage() {
 
       <div className="relative z-10 min-h-screen flex">
       {/* Left Panel - Illustration */}
-      <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900 p-12 flex-col justify-between text-white border-r border-slate-800">
+      <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-slate-950 via-purple-950 to-slate-900 p-12 flex-col justify-between text-white border-r border-slate-800">
         <div>
           <div className="flex items-center gap-2 text-white/90">
             <GraduationCap className="w-10 h-10 text-cyan-300" />
@@ -184,17 +184,17 @@ export default function LoginPage() {
           <h1 className="text-4xl font-bold text-white leading-tight">
             Collaborate. Review. Improve.
           </h1>
-          <p className="text-cyan-100 text-lg max-w-md">
+          <p className="text-cyan-200 text-lg max-w-md">
             Join thousands of students who enhance their learning through peer feedback and collaborative projects.
           </p>
-          <div className="flex gap-4 text-sm text-white/80">
+          <div className="flex flex-wrap gap-4 text-sm text-slate-300">
             <span>✓ Structured peer review</span>
             <span>✓ Real-time collaboration</span>
             <span>✓ Teacher oversight</span>
           </div>
         </div>
-        <div className="h-48 bg-white/10 rounded-2xl flex items-center justify-center backdrop-blur-sm border border-white/20">
-          <div className="text-center text-white/90">
+        <div className="h-48 bg-slate-900/50 rounded-2xl flex items-center justify-center backdrop-blur-sm border border-slate-700/60">
+          <div className="text-center text-slate-200">
             <p className="text-sm">Illustration placeholder</p>
             <p className="text-xs opacity-70">Collaboration & feedback</p>
           </div>
