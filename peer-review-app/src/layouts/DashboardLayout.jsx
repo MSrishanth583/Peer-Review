@@ -5,8 +5,13 @@ import { useTheme } from '../context/ThemeContext'
 import { getPlatformState, markNotificationRead, refreshPlatformState } from '../services/platformStore'
 import {
   LayoutDashboard,
-  Upload,
-  FileSearch,
+  CloudUpload,
+  FolderOpen,
+  ClipboardList,
+  CheckSquare,
+  ShieldCheck,
+  UserCog,
+  Users,
   Bell,
   Sun,
   Moon,
@@ -15,27 +20,25 @@ import {
   Menu,
   X,
   ChevronDown,
-  ShieldCheck,
-  Users,
 } from 'lucide-react'
 
 const studentNav = [
   { to: '/student/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
-  { to: '/student/upload', icon: Upload, label: 'Upload Project' },
-  { to: '/student/reviews', icon: FileSearch, label: 'Peer Reviews' },
+  { to: '/student/upload', icon: CloudUpload, label: 'Upload Project' },
+  { to: '/student/reviews', icon: ClipboardList, label: 'Peer Reviews' },
   { to: '/student/activity', icon: Bell, label: 'Activity' },
 ]
 
 const teacherNav = [
   { to: '/teacher/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
-  { to: '/teacher/projects', icon: FileSearch, label: 'All Projects' },
-  { to: '/teacher/assign', icon: Upload, label: 'Assign Reviewers' },
-  { to: '/teacher/approvals', icon: Bell, label: 'Approvals' },
+  { to: '/teacher/projects', icon: FolderOpen, label: 'All Projects' },
+  { to: '/teacher/assign', icon: Users, label: 'Assign Reviewers' },
+  { to: '/teacher/approvals', icon: CheckSquare, label: 'Approvals' },
 ]
 
 const adminNav = [
   { to: '/admin/dashboard', icon: ShieldCheck, label: 'Admin Dashboard' },
-  { to: '/admin/dashboard#users', icon: Users, label: 'All Users' },
+  { to: '/admin/dashboard#users', icon: UserCog, label: 'All Users' },
 ]
 
 export default function DashboardLayout() {
@@ -98,13 +101,16 @@ export default function DashboardLayout() {
     <div className="min-h-screen bg-slate-50 dark:bg-slate-900">
       {/* Sidebar */}
       <aside
-        className={`fixed inset-y-0 left-0 w-64 bg-white dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 z-50 transform transition-transform ${
+        className={`fixed inset-y-0 left-0 w-64 bg-slate-950/95 dark:bg-slate-900 border-r border-slate-800 z-50 transform transition-transform ${
           sidebarOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
-        <div className="flex h-16 items-center gap-2 px-6 border-b border-slate-200 dark:border-slate-700">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-bold">P</div>
-          <span className="font-bold text-slate-800 dark:text-white">Peer Review</span>
+        <div className="flex h-16 items-center gap-3 px-6 border-b border-slate-800">
+          <div className="w-10 h-10 rounded-3xl bg-gradient-to-br from-cyan-500 to-violet-600 flex items-center justify-center text-white text-sm font-extrabold tracking-[0.2em]">PR</div>
+          <div>
+            <p className="text-sm uppercase tracking-[0.24em] text-cyan-200">Peer Review</p>
+            <p className="text-xs text-slate-400">Student workspace</p>
+          </div>
         </div>
         <nav className="p-4 space-y-1">
           {nav.map(({ to, icon: Icon, label }) => (
@@ -114,8 +120,8 @@ export default function DashboardLayout() {
               className={({ isActive }) =>
                 `flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-all ${
                   isActive
-                    ? 'bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400'
-                    : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700/50 hover:text-slate-900 dark:hover:text-white'
+                    ? 'bg-cyan-50 dark:bg-cyan-900/30 text-cyan-600 dark:text-cyan-300 shadow-lg shadow-cyan-200/20'
+                    : 'text-slate-300 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700/50 hover:text-slate-100 dark:hover:text-white'
                 }`
               }
             >
@@ -137,7 +143,7 @@ export default function DashboardLayout() {
       {/* Main content */}
       <div className={sidebarOpen ? 'lg:pl-64' : ''}>
         {/* Top navbar */}
-        <header className="sticky top-0 z-20 h-16 bg-white/80 dark:bg-slate-800/80 backdrop-blur-lg border-b border-slate-200 dark:border-slate-700 flex items-center justify-between px-4 lg:px-8">
+        <header className="sticky top-0 z-20 h-16 bg-white/85 dark:bg-slate-950/95 backdrop-blur-xl border-b border-slate-200/70 dark:border-slate-800 flex items-center justify-between px-4 lg:px-8">
           <button
             onClick={() => setSidebarOpen((s) => !s)}
             className="p-2 -ml-2 text-slate-600 dark:text-slate-400"
