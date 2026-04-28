@@ -347,12 +347,13 @@ export default function LoginPage() {
                   </button>
                   <div className="relative flex-1">
                     <input
-                      type="number"
-                      inputMode="numeric"
+                      type="text"
+                      autoComplete="off"
+                      spellCheck="false"
                       value={captchaInput}
                       onChange={(e) => setCaptchaInput(e.target.value)}
-                      placeholder="Answer"
-                      className="w-full pl-4 pr-4 py-2.5 rounded-xl border border-slate-300 bg-slate-50 text-slate-900 placeholder-slate-500 focus:ring-2 focus:ring-cyan-400 focus:border-transparent [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                      placeholder="Type the word shown"
+                      className="w-full pl-4 pr-4 py-2.5 rounded-xl border border-slate-300 bg-slate-50 text-slate-900 placeholder-slate-500 focus:ring-2 focus:ring-cyan-400 focus:border-transparent transition-all shadow-sm"
                     />
                   </div>
                 </div>
