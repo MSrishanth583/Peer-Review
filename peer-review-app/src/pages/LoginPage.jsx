@@ -171,11 +171,11 @@ export default function LoginPage() {
 
       <div className="relative z-10 min-h-screen flex">
       {/* Left Panel - Illustration */}
-      <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-slate-950 via-purple-950 to-slate-900 p-12 flex-col justify-between text-white border-r border-slate-800">
+      <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-violet-950 via-fuchsia-950 to-slate-950 p-12 flex-col justify-between text-white border-r border-slate-800">
         <div>
-          <div className="flex items-center gap-2 text-white/90">
+          <div className="flex items-center gap-3 text-white/90">
             <GraduationCap className="w-10 h-10 text-cyan-300" />
-            <span className="text-xl font-bold">Peer Review Platform</span>
+            <span className="text-xl font-bold tracking-tight">Peer Review Platform</span>
           </div>
         </div>
         <div className="space-y-6">
@@ -333,7 +333,7 @@ export default function LoginPage() {
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-2">Captcha*</label>
                 <div className="flex gap-3 items-center">
-                  <div className="flex items-center justify-center min-w-[120px] h-12 px-4 bg-gradient-to-br from-violet-600 via-fuchsia-600 to-cyan-500 rounded-xl text-white font-mono text-lg font-bold tracking-[0.22em] shadow-lg shadow-violet-200/20">
+                  <div className="flex items-center justify-center min-w-[120px] h-12 px-4 bg-gradient-to-br from-fuchsia-500 via-violet-700 to-cyan-500 rounded-[1.5rem] text-white font-mono text-lg font-bold tracking-[0.3em] shadow-2xl shadow-fuchsia-500/20">
                     {validationCode}
                   </div>
                   <button
