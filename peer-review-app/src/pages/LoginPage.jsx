@@ -173,10 +173,10 @@ export default function LoginPage() {
 
       <div className="relative z-10 min-h-screen flex">
       {/* Left Panel - Illustration */}
-      <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-blue-100 via-white to-gray-100 p-12 flex-col justify-between backdrop-blur-sm border-r border-gray-200">
+      <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900 p-12 flex-col justify-between text-white border-r border-slate-800">
         <div>
           <div className="flex items-center gap-2 text-white/90">
-            <GraduationCap className="w-10 h-10" />
+            <GraduationCap className="w-10 h-10 text-cyan-300" />
             <span className="text-xl font-bold">Peer Review Platform</span>
           </div>
         </div>
@@ -184,7 +184,7 @@ export default function LoginPage() {
           <h1 className="text-4xl font-bold text-white leading-tight">
             Collaborate. Review. Improve.
           </h1>
-          <p className="text-indigo-100 text-lg max-w-md">
+          <p className="text-cyan-100 text-lg max-w-md">
             Join thousands of students who enhance their learning through peer feedback and collaborative projects.
           </p>
           <div className="flex gap-4 text-sm text-white/80">
@@ -204,15 +204,15 @@ export default function LoginPage() {
       {/* Right Panel - Login Card */}
       <div className="w-full lg:w-1/2 flex items-center justify-center p-8 bg-transparent">
         <div className="w-full max-w-md">
-          <div className="glass-card p-8 rounded-2xl shadow-xl border border-gray-200 bg-white backdrop-blur-md">
+          <div className="glass-card p-8 rounded-3xl shadow-2xl border border-slate-200 bg-white/95 backdrop-blur-xl">
             <div className="flex items-center gap-2 mb-8 lg:hidden">
-              <GraduationCap className="w-8 h-8 text-indigo-300" />
-              <span className="font-bold text-white">Peer Review</span>
+              <GraduationCap className="w-8 h-8 text-cyan-500" />
+              <span className="font-bold text-slate-900">Peer Review</span>
             </div>
            <h2 className="text-2xl font-bold text-gray-900 mb-2">
               {mode === 'login' ? 'Welcome back' : 'Create account'}
             </h2>
-            <p className="text-slate-300 mb-6">
+            <p className="text-slate-500 mb-6">
               {role === 'admin'
                 ? 'Sign in with the fixed admin credentials to open the admin dashboard'
                 : mode === 'login'
@@ -226,14 +226,14 @@ export default function LoginPage() {
             </p>
 
             {role !== 'admin' && (
-              <div className="flex gap-2 p-1 bg-gray-200 rounded-lg mb-6">
+              <div className="flex gap-2 p-1 bg-slate-100 rounded-2xl border border-slate-200 mb-6">
   <button
     type="button"
     onClick={() => setMode('login')}
-    className={`flex-1 py-2 rounded-md text-sm font-medium transition-all ${
+    className={`flex-1 py-2 rounded-xl text-sm font-medium transition-all ${
       mode === 'login'
-        ? 'bg-white text-blue-600 shadow border'
-        : 'text-gray-600 hover:text-black'
+        ? 'bg-slate-900 text-white shadow border border-slate-800'
+        : 'text-slate-600 hover:text-slate-900'
     }`}
   >
     Login
@@ -241,10 +241,10 @@ export default function LoginPage() {
   <button
     type="button"
     onClick={() => setMode('register')}
-    className={`flex-1 py-2 rounded-md text-sm font-medium transition-all ${
+    className={`flex-1 py-2 rounded-xl text-sm font-medium transition-all ${
       mode === 'register'
-        ? 'bg-white text-blue-600 shadow border'
-        : 'text-gray-600 hover:text-black'
+        ? 'bg-slate-900 text-white shadow border border-slate-800'
+        : 'text-slate-600 hover:text-slate-900'
     }`}
   >
                 Register
@@ -253,14 +253,14 @@ export default function LoginPage() {
             )}
 
             {/* Role Selection */}
-            <div className="grid grid-cols-3 gap-2 p-1 bg-slate-800/70 rounded-lg mb-6">
+            <div className="grid grid-cols-3 gap-2 p-1 bg-slate-100 rounded-2xl border border-slate-200 mb-6">
               <button
                 type="button"
                 onClick={() => handleRoleChange('student')}
-                className={`flex-1 py-2 rounded-md text-sm font-medium transition-all ${
+                className={`flex-1 py-2 rounded-xl text-sm font-medium transition-all ${
                   role === 'student'
-                    ? 'bg-white text-blue-600 border'
-                    : 'text-slate-300 hover:text-white'
+                    ? 'bg-slate-900 text-white border border-slate-800'
+                    : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
                 Student
@@ -268,10 +268,10 @@ export default function LoginPage() {
               <button
                 type="button"
                 onClick={() => handleRoleChange('teacher')}
-                className={`flex-1 py-2 rounded-md text-sm font-medium transition-all ${
+                className={`flex-1 py-2 rounded-xl text-sm font-medium transition-all ${
                   role === 'teacher'
-                    ? 'bg-white text-blue-600 border'
-                    : 'text-slate-300 hover:text-white'
+                    ? 'bg-slate-900 text-white border border-slate-800'
+                    : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
                 Teacher
@@ -279,10 +279,10 @@ export default function LoginPage() {
               <button
   type="button"
   onClick={() => handleRoleChange('admin')}
-  className={`flex-1 py-2 rounded-md text-sm font-medium transition-all ${
+  className={`flex-1 py-2 rounded-xl text-sm font-medium transition-all ${
     role === 'admin'
-      ? 'bg-white text-blue-600 shadow border'
-      : 'text-gray-600 hover:text-black'
+      ? 'bg-slate-900 text-white border border-slate-800'
+      : 'text-slate-600 hover:text-slate-900'
   }`}
 >
   Admin
@@ -292,19 +292,19 @@ export default function LoginPage() {
             <form onSubmit={handleSubmit} className="space-y-5">
               {mode === 'register' && (
                 <div>
-                  <label className="block text-sm font-medium text-slate-200 mb-2">Full Name</label>
+                  <label className="block text-sm font-medium text-slate-700 mb-2">Full Name</label>
                   <input
                     type="text"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Your full name"
-                    className="w-full px-4 py-2.5 rounded-lg border border-slate-700 bg-slate-900/70 text-white placeholder-slate-500 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+                    className="w-full px-4 py-2.5 rounded-xl border border-slate-300 bg-slate-50 text-slate-900 placeholder-slate-500 focus:ring-2 focus:ring-cyan-400 focus:border-transparent transition-all shadow-sm"
                   />
                 </div>
               )}
 
               <div>
-                <label className="block text-sm font-medium text-slate-200 mb-2">Email</label>
+                <label className="block text-sm font-medium text-slate-700 mb-2">Email</label>
                 <div className="relative">
                   <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
                   <input
@@ -312,13 +312,13 @@ export default function LoginPage() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder={role === 'admin' ? 'admin@example.com' : 'you@university.edu'}
-                    className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-slate-700 bg-slate-900/70 text-white placeholder-slate-500 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+                    className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-300 bg-slate-50 text-slate-900 placeholder-slate-500 focus:ring-2 focus:ring-cyan-400 focus:border-transparent transition-all shadow-sm"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-200 mb-2">Password</label>
+                <label className="block text-sm font-medium text-slate-700 mb-2">Password</label>
                 <div className="relative">
                   <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
                   <input
@@ -326,22 +326,22 @@ export default function LoginPage() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder={role === 'admin' ? 'Admin password' : '••••••••'}
-                    className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-slate-700 bg-slate-900/70 text-white placeholder-slate-500 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+                    className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-300 bg-slate-50 text-slate-900 placeholder-slate-500 focus:ring-2 focus:ring-cyan-400 focus:border-transparent transition-all shadow-sm"
                   />
                 </div>
               </div>
 
               {/* Captcha - Math addition */}
               <div>
-                <label className="block text-sm font-medium text-slate-200 mb-2">Captcha</label>
+                <label className="block text-sm font-medium text-slate-700 mb-2">Captcha</label>
                 <div className="flex gap-3 items-center">
-                  <div className="flex items-center justify-center gap-1 min-w-[100px] h-12 px-3 bg-slate-800 rounded-lg font-mono text-lg font-bold text-slate-200 select-none">
+                  <div className="flex items-center justify-center gap-1 min-w-[100px] h-12 px-3 bg-slate-50 rounded-xl font-mono text-lg font-bold text-slate-900 select-none">
                     {captcha.a} + {captcha.b} = ?
                   </div>
                   <button
                     type="button"
                     onClick={refreshCaptcha}
-                    className="p-2 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-slate-200"
+                    className="p-2 rounded-xl text-slate-500 hover:bg-slate-100 hover:text-slate-900"
                     title="Refresh captcha"
                   >
                     <Shield className="w-5 h-5" />
@@ -353,7 +353,7 @@ export default function LoginPage() {
                       value={captchaInput}
                       onChange={(e) => setCaptchaInput(e.target.value)}
                       placeholder="Answer"
-                      className="w-full pl-4 pr-4 py-2.5 rounded-lg border border-slate-700 bg-slate-900/70 text-white placeholder-slate-500 focus:ring-2 focus:ring-indigo-500 focus:border-transparent [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                      className="w-full pl-4 pr-4 py-2.5 rounded-xl border border-slate-300 bg-slate-50 text-slate-900 placeholder-slate-500 focus:ring-2 focus:ring-cyan-400 focus:border-transparent [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                     />
                   </div>
                 </div>
@@ -372,16 +372,16 @@ export default function LoginPage() {
                     type="checkbox"
                     checked={rememberMe}
                     onChange={(e) => setRememberMe(e.target.checked)}
-                    className="rounded border-slate-600 text-indigo-400 focus:ring-indigo-500"
+                    className="rounded border-slate-300 text-cyan-500 focus:ring-cyan-500"
                   />
-                  <span className="text-sm text-slate-300">Remember me</span>
+                  <span className="text-sm text-slate-600">Remember me</span>
                 </label>
-                <a href="#" className="text-sm text-indigo-300 hover:underline">Forgot password?</a>
+                <a href="#" className="text-sm text-cyan-500 hover:underline">Forgot password?</a>
               </div>
 
               <button
                 type="submit"
-                className="w-full py-3 px-4 rounded-lg bg-gradient-to-r from-indigo-500 to-blue-500 text-white font-medium hover:from-indigo-600 hover:to-blue-600 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-slate-900 transition-all shadow-lg hover:shadow-xl"
+                className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-cyan-500 to-sky-500 text-white font-medium hover:from-cyan-600 hover:to-sky-600 focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:ring-offset-white transition-all shadow-lg hover:shadow-xl"
               >
                 {role === 'admin' || mode === 'login' ? 'Sign in' : 'Create account'}
               </button>
