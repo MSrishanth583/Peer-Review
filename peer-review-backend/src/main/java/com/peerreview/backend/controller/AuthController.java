@@ -4,6 +4,7 @@ import com.peerreview.backend.dto.AuthDtos;
 import com.peerreview.backend.model.User;
 import com.peerreview.backend.repository.UserRepository;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -12,14 +13,22 @@ import org.springframework.web.server.ResponseStatusException;
 @RequestMapping("/api/auth")
 public class AuthController {
     private static final Long ADMIN_ID = 0L;
-    private static final String ADMIN_NAME = "Avinash Reddy";
-    private static final String ADMIN_EMAIL = "avinashreddypadala1234@gmail.com";
-    private static final String ADMIN_PASSWORD = "1236";
 
     private final UserRepository userRepository;
+    private final String adminName;
+    private final String adminEmail;
+    private final String adminPassword;
 
-    public AuthController(UserRepository userRepository) {
+    public AuthController(
+            UserRepository userRepository,
+            @Value("${app.admin.name:Admin}") String adminName,
+            @Value("${app.admin.email:admin@example.com}") String adminEmail,
+            @Value("${app.admin.password:admin123}") String adminPassword
+    ) {
         this.userRepository = userRepository;
+        this.adminName = adminName;
+        this.adminEmail = adminEmail.trim().toLowerCase();
+        this.adminPassword = adminPassword;
     }
 
     @PostMapping("/register")
@@ -53,11 +62,11 @@ public class AuthController {
         String email = request.email().trim().toLowerCase();
         String password = request.password();
 
-        if (ADMIN_EMAIL.equalsIgnoreCase(email) && ADMIN_PASSWORD.equals(password)) {
+        if (adminEmail.equalsIgnoreCase(email) && adminPassword.equals(password)) {
             return new AuthDtos.AuthResponse(
                     ADMIN_ID,
-                    ADMIN_EMAIL,
-                    ADMIN_NAME,
+                    adminEmail,
+                    adminName,
                     com.peerreview.backend.model.Role.ADMIN
             );
         }

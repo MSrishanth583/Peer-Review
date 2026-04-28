@@ -5,6 +5,7 @@ import com.peerreview.backend.dto.ProjectDtos;
 import com.peerreview.backend.dto.ReviewDtos;
 import com.peerreview.backend.model.*;
 import com.peerreview.backend.repository.*;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,8 +18,6 @@ import java.util.stream.Collectors;
 public class ProjectService {
     private static final DateTimeFormatter DISPLAY_TIME = DateTimeFormatter.ofPattern("MMM d, h:mm a", Locale.ENGLISH);
     private static final Long ADMIN_ID = 0L;
-    private static final String ADMIN_NAME = "Avinash Reddy";
-    private static final String ADMIN_EMAIL = "avinashreddypadala1234@gmail.com";
 
     private final ProjectRepository projectRepository;
     private final ReviewRepository reviewRepository;
@@ -28,6 +27,8 @@ public class ProjectService {
     private final ActivityEventRepository activityEventRepository;
     private final ReviewReplyRepository reviewReplyRepository;
     private final UserRepository userRepository;
+    private final String adminName;
+    private final String adminEmail;
 
     public ProjectService(
             ProjectRepository projectRepository,
@@ -37,7 +38,9 @@ public class ProjectService {
             NotificationRepository notificationRepository,
             ActivityEventRepository activityEventRepository,
             ReviewReplyRepository reviewReplyRepository,
-            UserRepository userRepository
+            UserRepository userRepository,
+            @Value("${app.admin.name:Admin}") String adminName,
+            @Value("${app.admin.email:admin@example.com}") String adminEmail
     ) {
         this.projectRepository = projectRepository;
         this.reviewRepository = reviewRepository;
@@ -47,6 +50,8 @@ public class ProjectService {
         this.activityEventRepository = activityEventRepository;
         this.reviewReplyRepository = reviewReplyRepository;
         this.userRepository = userRepository;
+        this.adminName = adminName;
+        this.adminEmail = adminEmail.trim().toLowerCase();
     }
 
     public List<ProjectDtos.ProjectResponse> listProjects(String status, String search) {
@@ -564,7 +569,7 @@ public class ProjectService {
 
     private List<PlatformDtos.PlatformUserResponse> appendAdminUser(List<PlatformDtos.PlatformUserResponse> users) {
         boolean adminAlreadyPresent = users.stream()
-                .anyMatch(user -> ADMIN_EMAIL.equalsIgnoreCase(user.email()));
+                .anyMatch(user -> adminEmail.equalsIgnoreCase(user.email()));
 
         if (adminAlreadyPresent) {
             return users;
@@ -573,8 +578,8 @@ public class ProjectService {
         List<PlatformDtos.PlatformUserResponse> result = new ArrayList<>();
         result.add(new PlatformDtos.PlatformUserResponse(
                 ADMIN_ID,
-                ADMIN_EMAIL,
-                ADMIN_NAME,
+                adminEmail,
+                adminName,
                 Role.ADMIN,
                 null
         ));

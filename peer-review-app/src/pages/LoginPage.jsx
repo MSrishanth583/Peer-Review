@@ -311,7 +311,7 @@ export default function LoginPage() {
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder={role === 'admin' ? 'avinashreddypadala1234@gmail.com' : 'you@university.edu'}
+                    placeholder={role === 'admin' ? 'admin@example.com' : 'you@university.edu'}
                     className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-slate-700 bg-slate-900/70 text-white placeholder-slate-500 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
                   />
                 </div>
@@ -325,7 +325,7 @@ export default function LoginPage() {
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    placeholder={role === 'admin' ? '1236' : '••••••••'}
+                    placeholder={role === 'admin' ? 'Admin password' : '••••••••'}
                     className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-slate-700 bg-slate-900/70 text-white placeholder-slate-500 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
                   />
                 </div>
