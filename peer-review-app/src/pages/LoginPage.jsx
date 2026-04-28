@@ -304,7 +304,7 @@ export default function LoginPage() {
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-2">Captcha*</label>
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-                  <div className="flex items-center justify-center min-w-[120px] h-14 rounded-[1.75rem] bg-gradient-to-br from-fuchsia-500 via-violet-700 to-cyan-500 px-4 text-lg font-semibold tracking-[0.28em] text-white shadow-2xl shadow-fuchsia-500/20">
+                  <div className="flex items-center justify-center min-w-[120px] h-14 rounded-[1.75rem] bg-gradient-to-br from-indigo-600 via-cyan-500 to-sky-500 px-4 text-lg font-semibold tracking-[0.28em] text-white shadow-lg shadow-cyan-500/20 ring-1 ring-white/10">
                     {validationCode}
                   </div>
                   <button
@@ -348,7 +348,7 @@ export default function LoginPage() {
 
               <button
                 type="submit"
-                className="mt-2 w-full rounded-2xl bg-gradient-to-r from-cyan-500 to-sky-500 px-5 py-3 text-base font-semibold text-white shadow-lg shadow-cyan-500/20 transition hover:from-cyan-600 hover:to-sky-600"
+                className="mt-2 w-full rounded-2xl bg-gradient-to-r from-indigo-600 via-cyan-500 to-teal-400 px-5 py-3 text-base font-semibold text-white shadow-xl shadow-cyan-500/20 transition duration-200 ease-out hover:-translate-y-0.5 hover:shadow-2xl focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:ring-offset-2 focus:ring-offset-white active:translate-y-0.5 active:shadow-lg"
               >
                 {role === 'admin' || mode === 'login' ? 'Sign in' : 'Create account'}
               </button>
