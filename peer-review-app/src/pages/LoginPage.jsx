@@ -18,9 +18,8 @@ export default function LoginPage() {
   const [showRegisterPopup, setShowRegisterPopup] = useState(false)
   const canvasRef = useRef(null)
 
-  const validationWords = ['review', 'peer', 'study', 'focus', 'learn', 'share', 'collab', 'build']
   const generateValidationCode = useCallback(() => {
-    return validationWords[Math.floor(Math.random() * validationWords.length)]
+    return String(Math.floor(1000 + Math.random() * 9000))
   }, [])
   const [validationCode, setValidationCode] = useState(() => generateValidationCode())
 
@@ -48,8 +47,8 @@ export default function LoginPage() {
       refreshValidationCode()
       return
     }
-    if (captchaInput.trim().toLowerCase() !== validationCode) {
-      setError('Validation word is incorrect')
+    if (captchaInput.trim() !== validationCode) {
+      setError('Captcha value is incorrect')
       refreshValidationCode()
       return
     }
@@ -330,29 +329,30 @@ export default function LoginPage() {
                 </div>
               </div>
 
-              {/* Validation challenge */}
+              {/* Captcha code */}
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-2">Validation word</label>
+                <label className="block text-sm font-medium text-slate-700 mb-2">Captcha*</label>
                 <div className="flex gap-3 items-center">
-                  <div className="flex items-center justify-center gap-1 min-w-[120px] h-12 px-4 bg-slate-50 rounded-xl font-mono text-lg font-bold text-slate-900 select-none tracking-[0.12em]">
-                    {validationCode.toUpperCase()}
+                  <div className="flex items-center justify-center min-w-[120px] h-12 px-4 bg-gradient-to-br from-violet-600 via-fuchsia-600 to-cyan-500 rounded-xl text-white font-mono text-lg font-bold tracking-[0.22em] shadow-lg shadow-violet-200/20">
+                    {validationCode}
                   </div>
                   <button
                     type="button"
                     onClick={refreshValidationCode}
                     className="p-2 rounded-xl text-slate-500 hover:bg-slate-100 hover:text-slate-900"
-                    title="Refresh challenge"
+                    title="Refresh captcha"
                   >
                     <Shield className="w-5 h-5" />
                   </button>
                   <div className="relative flex-1">
                     <input
                       type="text"
+                      inputMode="numeric"
                       autoComplete="off"
                       spellCheck="false"
                       value={captchaInput}
                       onChange={(e) => setCaptchaInput(e.target.value)}
-                      placeholder="Type the word shown"
+                      placeholder="Enter captcha"
                       className="w-full pl-4 pr-4 py-2.5 rounded-xl border border-slate-300 bg-slate-50 text-slate-900 placeholder-slate-500 focus:ring-2 focus:ring-cyan-400 focus:border-transparent transition-all shadow-sm"
                     />
                   </div>
