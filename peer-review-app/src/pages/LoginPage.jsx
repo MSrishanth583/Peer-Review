@@ -173,7 +173,7 @@ export default function LoginPage() {
 
       <div className="relative z-10 min-h-screen flex">
       {/* Left Panel - Illustration */}
-      <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-slate-900/80 via-indigo-900/70 to-slate-900/80 p-12 flex-col justify-between backdrop-blur-sm border-r border-white/10">
+      <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-blue-100 via-white to-gray-100 p-12 flex-col justify-between backdrop-blur-sm border-r border-gray-200">
         <div>
           <div className="flex items-center gap-2 text-white/90">
             <GraduationCap className="w-10 h-10" />
@@ -204,12 +204,12 @@ export default function LoginPage() {
       {/* Right Panel - Login Card */}
       <div className="w-full lg:w-1/2 flex items-center justify-center p-8 bg-transparent">
         <div className="w-full max-w-md">
-          <div className="glass-card p-8 rounded-2xl shadow-2xl border border-white/10 bg-slate-900/65 backdrop-blur-xl">
+          <div className="glass-card p-8 rounded-2xl shadow-xl border border-gray-200 bg-white backdrop-blur-md">
             <div className="flex items-center gap-2 mb-8 lg:hidden">
               <GraduationCap className="w-8 h-8 text-indigo-300" />
               <span className="font-bold text-white">Peer Review</span>
             </div>
-            <h2 className="text-2xl font-bold text-white mb-2">
+           <h2 className="text-2xl font-bold text-gray-900 mb-2">
               {mode === 'login' ? 'Welcome back' : 'Create account'}
             </h2>
             <p className="text-slate-300 mb-6">
@@ -226,27 +226,27 @@ export default function LoginPage() {
             </p>
 
             {role !== 'admin' && (
-              <div className="flex gap-2 p-1 bg-slate-800/70 rounded-lg mb-6">
-              <button
-                type="button"
-                onClick={() => setMode('login')}
-                className={`flex-1 py-2 rounded-md text-sm font-medium transition-all ${
-                  mode === 'login'
-                    ? 'bg-slate-900 text-indigo-300 shadow'
-                    : 'text-slate-300 hover:text-white'
-                }`}
-              >
-                Login
-              </button>
-              <button
-                type="button"
-                onClick={() => setMode('register')}
-                className={`flex-1 py-2 rounded-md text-sm font-medium transition-all ${
-                  mode === 'register'
-                    ? 'bg-slate-900 text-indigo-300 shadow'
-                    : 'text-slate-300 hover:text-white'
-                }`}
-              >
+              <div className="flex gap-2 p-1 bg-gray-200 rounded-lg mb-6">
+  <button
+    type="button"
+    onClick={() => setMode('login')}
+    className={`flex-1 py-2 rounded-md text-sm font-medium transition-all ${
+      mode === 'login'
+        ? 'bg-white text-blue-600 shadow border'
+        : 'text-gray-600 hover:text-black'
+    }`}
+  >
+    Login
+  </button>
+  <button
+    type="button"
+    onClick={() => setMode('register')}
+    className={`flex-1 py-2 rounded-md text-sm font-medium transition-all ${
+      mode === 'register'
+        ? 'bg-white text-blue-600 shadow border'
+        : 'text-gray-600 hover:text-black'
+    }`}
+  >
                 Register
               </button>
               </div>
@@ -277,16 +277,16 @@ export default function LoginPage() {
                 Teacher
               </button>
               <button
-                type="button"
-                onClick={() => handleRoleChange('admin')}
-                className={`flex-1 py-2 rounded-md text-sm font-medium transition-all ${
-                  role === 'admin'
-                    ? 'bg-slate-900 text-indigo-300 shadow'
-                    : 'text-slate-300 hover:text-white'
-                }`}
-              >
-                Admin
-              </button>
+  type="button"
+  onClick={() => handleRoleChange('admin')}
+  className={`flex-1 py-2 rounded-md text-sm font-medium transition-all ${
+    role === 'admin'
+      ? 'bg-white text-blue-600 shadow border'
+      : 'text-gray-600 hover:text-black'
+  }`}
+>
+  Admin
+</button>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-5">
