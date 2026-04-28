@@ -348,7 +348,7 @@ export default function LoginPage() {
 
               <button
                 type="submit"
-                className="mt-2 w-full rounded-2xl bg-gradient-to-r from-indigo-600 via-cyan-500 to-violet-500 px-5 py-3 text-base font-semibold text-white shadow-xl shadow-cyan-500/25 transition duration-200 ease-out hover:-translate-y-0.5 hover:shadow-2xl focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:ring-offset-2 focus:ring-offset-slate-950 active:translate-y-0.5 active:shadow-lg"
+                className="mt-2 w-full rounded-2xl bg-gradient-to-r from-indigo-500 via-cyan-500 to-sky-500 px-5 py-3 text-base font-semibold text-white shadow-xl shadow-cyan-500/25 transition duration-200 ease-out hover:shadow-2xl hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:ring-offset-2 focus:ring-offset-slate-950 active:translate-y-0.5 active:shadow-lg"
               >
                 {role === 'admin' || mode === 'login' ? 'Sign in' : 'Create account'}
               </button>
