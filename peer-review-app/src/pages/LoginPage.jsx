@@ -161,7 +161,7 @@ export default function LoginPage() {
   }, [])
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-slate-950 text-slate-900">
+    <div className="relative min-h-screen overflow-hidden bg-slate-950 text-slate-100">
       <div className="login-bg" aria-hidden="true">
         <div className="login-blob login-blob-1" />
         <div className="login-blob login-blob-2" />
@@ -185,11 +185,11 @@ export default function LoginPage() {
             </p>
           </div>
 
-          <div className="mx-auto w-full max-w-xl rounded-[2rem] border border-white/10 bg-white/95 p-8 shadow-[0_40px_100px_-40px_rgba(15,23,42,0.35)] backdrop-blur-xl">
+          <div className="mx-auto w-full max-w-xl rounded-[2rem] border border-white/15 bg-slate-900/65 p-8 shadow-[0_40px_100px_-40px_rgba(15,23,42,0.45)] backdrop-blur-2xl">
             <div className="mb-8 text-center">
               <p className="text-sm uppercase tracking-[0.28em] text-slate-500">{mode === 'login' ? 'Login' : 'Register'}</p>
-              <h2 className="mt-4 text-3xl font-semibold text-slate-900">{mode === 'login' ? 'Welcome back' : 'Create account'}</h2>
-              <p className="mt-3 text-sm text-slate-500">
+              <h2 className="mt-4 text-3xl font-semibold text-slate-100">{mode === 'login' ? 'Welcome back' : 'Create account'}</h2>
+              <p className="mt-3 text-sm text-slate-300">
                 {role === 'admin'
                   ? 'Sign in with the fixed admin credentials to open the admin dashboard'
                   : mode === 'login'
@@ -202,10 +202,10 @@ export default function LoginPage() {
               <button
                 type="button"
                 onClick={() => setMode('login')}
-                className={`rounded-2xl border px-4 py-3 text-sm font-medium transition ${
+                className={`rounded-2xl border px-4 py-3 text-sm font-medium transition-colors duration-200 ${
                   mode === 'login'
-                    ? 'bg-slate-950 text-white border-slate-950 shadow-lg shadow-slate-950/10'
-                    : 'bg-transparent text-slate-600 border-slate-200 hover:bg-slate-50'
+                    ? 'bg-slate-800/90 text-white border-cyan-400/30 shadow-lg shadow-cyan-500/15'
+                    : 'bg-white/10 text-slate-200 border-white/10 hover:bg-white/15 hover:text-white'
                 }`}
               >
                 Login
@@ -213,24 +213,24 @@ export default function LoginPage() {
               <button
                 type="button"
                 onClick={() => setMode('register')}
-                className={`rounded-2xl border px-4 py-3 text-sm font-medium transition ${
+                className={`rounded-2xl border px-4 py-3 text-sm font-medium transition-colors duration-200 ${
                   mode === 'register'
-                    ? 'bg-slate-950 text-white border-slate-950 shadow-lg shadow-slate-950/10'
-                    : 'bg-transparent text-slate-600 border-slate-200 hover:bg-slate-50'
+                    ? 'bg-slate-800/90 text-white border-cyan-400/30 shadow-lg shadow-cyan-500/15'
+                    : 'bg-white/10 text-slate-200 border-white/10 hover:bg-white/15 hover:text-white'
                 }`}
               >
                 Register
               </button>
             </div>
 
-            <div className="grid grid-cols-3 gap-3 mb-6 rounded-2xl border border-slate-200 bg-slate-50 p-1 shadow-sm">
+            <div className="grid grid-cols-3 gap-3 mb-6 rounded-2xl border border-white/10 bg-white/10 p-1 shadow-sm shadow-slate-950/10 backdrop-blur-sm">
               <button
                 type="button"
                 onClick={() => handleRoleChange('student')}
-                className={`rounded-2xl py-3 text-sm font-medium transition ${
+                className={`rounded-2xl py-3 text-sm font-medium transition-colors duration-200 ${
                   role === 'student'
-                    ? 'bg-slate-950 text-white shadow-sm shadow-slate-950/10'
-                    : 'text-slate-600 hover:text-slate-900'
+                    ? 'bg-slate-800/90 text-white shadow-sm shadow-cyan-500/10'
+                    : 'text-slate-200 hover:text-white'
                 }`}
               >
                 Student
@@ -238,10 +238,10 @@ export default function LoginPage() {
               <button
                 type="button"
                 onClick={() => handleRoleChange('teacher')}
-                className={`rounded-2xl py-3 text-sm font-medium transition ${
+                className={`rounded-2xl py-3 text-sm font-medium transition-colors duration-200 ${
                   role === 'teacher'
-                    ? 'bg-slate-950 text-white shadow-sm shadow-slate-950/10'
-                    : 'text-slate-600 hover:text-slate-900'
+                    ? 'bg-slate-800/90 text-white shadow-sm shadow-cyan-500/10'
+                    : 'text-slate-200 hover:text-white'
                 }`}
               >
                 Teacher
@@ -249,10 +249,10 @@ export default function LoginPage() {
               <button
                 type="button"
                 onClick={() => handleRoleChange('admin')}
-                className={`rounded-2xl py-3 text-sm font-medium transition ${
+                className={`rounded-2xl py-3 text-sm font-medium transition-colors duration-200 ${
                   role === 'admin'
-                    ? 'bg-slate-950 text-white shadow-sm shadow-slate-950/10'
-                    : 'text-slate-600 hover:text-slate-900'
+                    ? 'bg-slate-800/90 text-white shadow-sm shadow-cyan-500/10'
+                    : 'text-slate-200 hover:text-white'
                 }`}
               >
                 Admin
@@ -262,19 +262,19 @@ export default function LoginPage() {
             <form onSubmit={handleSubmit} className="space-y-5">
               {mode === 'register' && (
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-2">Full Name</label>
+                  <label className="block text-sm font-medium text-slate-300 mb-2">Full Name</label>
                   <input
                     type="text"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Your full name"
-                    className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-900 placeholder-slate-500 shadow-sm focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-200"
+                    className="w-full rounded-2xl border border-slate-700 bg-white/10 px-4 py-3 text-slate-100 placeholder-slate-400 shadow-sm focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-300"
                   />
                 </div>
               )}
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-2">Email</label>
+                <label className="block text-sm font-medium text-slate-300 mb-2">Email</label>
                 <div className="relative">
                   <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
                   <input
@@ -282,13 +282,13 @@ export default function LoginPage() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder={role === 'admin' ? 'admin@example.com' : 'you@university.edu'}
-                    className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 pl-12 text-slate-900 placeholder-slate-500 shadow-sm focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-200"
+                    className="w-full rounded-2xl border border-slate-700 bg-white/10 px-4 py-3 pl-12 text-slate-100 placeholder-slate-400 shadow-sm focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-300"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-2">Password</label>
+                <label className="block text-sm font-medium text-slate-300 mb-2">Password</label>
                 <div className="relative">
                   <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
                   <input
@@ -296,21 +296,21 @@ export default function LoginPage() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder={role === 'admin' ? 'Admin password' : '••••••••'}
-                    className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 pl-12 text-slate-900 placeholder-slate-500 shadow-sm focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-200"
+                    className="w-full rounded-2xl border border-slate-700 bg-white/10 px-4 py-3 pl-12 text-slate-100 placeholder-slate-400 shadow-sm focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-300"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-2">Captcha*</label>
+                <label className="block text-sm font-medium text-slate-300 mb-2">Captcha*</label>
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-                  <div className="flex items-center justify-center min-w-[120px] h-14 rounded-[1.75rem] bg-gradient-to-br from-indigo-600 via-cyan-500 to-sky-500 px-4 text-lg font-semibold tracking-[0.28em] text-white shadow-lg shadow-cyan-500/20 ring-1 ring-white/10">
+                  <div className="flex items-center justify-center min-w-[120px] h-14 rounded-[1.75rem] bg-gradient-to-br from-indigo-500 via-cyan-400 to-violet-600 px-4 text-lg font-semibold tracking-[0.28em] text-white shadow-xl shadow-cyan-500/20 ring-1 ring-white/15">
                     {validationCode}
                   </div>
                   <button
                     type="button"
                     onClick={refreshValidationCode}
-                    className="inline-flex h-14 items-center justify-center rounded-2xl border border-slate-200 bg-slate-50 px-4 text-slate-600 transition hover:bg-slate-100 hover:text-slate-900"
+                    className="inline-flex h-14 items-center justify-center rounded-2xl border border-white/10 bg-slate-950/70 px-4 text-slate-200 transition hover:bg-slate-900 hover:text-white"
                     title="Refresh captcha"
                   >
                     <Shield className="w-5 h-5" />
@@ -324,7 +324,7 @@ export default function LoginPage() {
                       value={captchaInput}
                       onChange={(e) => setCaptchaInput(e.target.value)}
                       placeholder="Enter captcha"
-                      className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-900 placeholder-slate-500 shadow-sm focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-200"
+                      className="w-full rounded-2xl border border-slate-700 bg-white/10 px-4 py-3 text-slate-100 placeholder-slate-400 shadow-sm focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-300"
                     />
                   </div>
                 </div>
@@ -348,7 +348,7 @@ export default function LoginPage() {
 
               <button
                 type="submit"
-                className="mt-2 w-full rounded-2xl bg-gradient-to-r from-indigo-600 via-cyan-500 to-teal-400 px-5 py-3 text-base font-semibold text-white shadow-xl shadow-cyan-500/20 transition duration-200 ease-out hover:-translate-y-0.5 hover:shadow-2xl focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:ring-offset-2 focus:ring-offset-white active:translate-y-0.5 active:shadow-lg"
+                className="mt-2 w-full rounded-2xl bg-gradient-to-r from-indigo-600 via-cyan-500 to-violet-500 px-5 py-3 text-base font-semibold text-white shadow-xl shadow-cyan-500/25 transition duration-200 ease-out hover:-translate-y-0.5 hover:shadow-2xl focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:ring-offset-2 focus:ring-offset-slate-950 active:translate-y-0.5 active:shadow-lg"
               >
                 {role === 'admin' || mode === 'login' ? 'Sign in' : 'Create account'}
               </button>
@@ -359,15 +359,15 @@ export default function LoginPage() {
 
       {showRegisterPopup && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-          <div className="w-full max-w-sm rounded-3xl bg-white p-6 shadow-2xl">
-            <h3 className="text-lg font-semibold text-slate-900">Registration Successful</h3>
-            <p className="mt-3 text-sm text-slate-600">
+          <div className="w-full max-w-sm rounded-3xl bg-slate-900/80 border border-white/10 p-6 shadow-2xl backdrop-blur-xl">
+            <h3 className="text-lg font-semibold text-slate-100">Registration Successful</h3>
+            <p className="mt-3 text-sm text-slate-300">
               Successfully registered. Please login with the same email and credentials.
             </p>
             <button
               type="button"
               onClick={() => setShowRegisterPopup(false)}
-              className="mt-6 w-full rounded-2xl bg-slate-950 px-4 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
+              className="mt-6 w-full rounded-2xl bg-gradient-to-r from-indigo-600 via-cyan-500 to-violet-500 px-4 py-3 text-sm font-semibold text-white transition hover:from-indigo-500 hover:via-cyan-400 hover:to-violet-400"
             >
               OK
             </button>
